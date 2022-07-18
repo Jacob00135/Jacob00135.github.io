@@ -1,0 +1,91 @@
+@mixin dark-button {
+    background-color: #818CBB;
+    color: #eee;
+    transition: all .1s;
+
+    &:hover {
+        box-shadow: 0 0 5px 2px #5a70ff;
+        background-color: #aeb9e7;
+        color: #fff;
+    }
+
+    &:active {
+        box-shadow: 0 0 5px 1px #7d3a85;
+        background-color: #7d3a85;
+        color: #fff;
+    }
+}
+
+// 页面宏观布局
+body {
+    background-color: #20232D;
+    color: #eee;
+
+    #main {
+        background-color: #3F445B;
+        box-shadow: 0 0 20px 1px #746bb980;
+    }
+
+    #theme-switch {
+        background-color: #868686;
+        color: #eee;
+    }
+}
+
+// 按钮组
+#action-btn-group {
+    & > .btn-group {
+        button {
+            @include dark-button();
+        }
+
+        .level {
+            background-color: #818CBB;
+            color: #eee;
+        }
+    }
+
+    @media screen and (max-width: 454px) {
+        .menu {
+            @include dark-button();
+        }
+
+        & > .btn-group {
+            background-color: #818CBB;
+            color: #eee;
+            transition: all .1s;
+
+            & > button,
+            .btn-group > button {
+                @include dark-button();
+            }
+        }
+    }
+}
+
+// 方块区域
+#block-area {
+    table td {
+        border-color: #1b1066;
+    }
+
+    button {
+        background-color: #8491CC;
+
+        &.open {
+            background-color: #8A8A8A;
+        }
+
+        &.mine {
+            background-color: #FFB6C1;
+        }
+
+        &:hover {
+            box-shadow: 0 0 3px 1px #3421b1;
+        }
+
+        &:active {
+            background-color: #B8CFE5;
+        }
+    }
+}

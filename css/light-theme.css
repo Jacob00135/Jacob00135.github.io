@@ -1,0 +1,47 @@
+body {
+  background-color: #eee;
+}
+body #main {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+body #theme-switch {
+  background-color: #D0D0D7;
+}
+
+#action-btn-group > .btn-group .level button:hover {
+  background-color: #F5F5F5;
+}
+@media screen and (max-width: 454px) {
+  #action-btn-group > .btn-group {
+    background-color: #fff;
+  }
+  #action-btn-group > .btn-group > button,
+#action-btn-group > .btn-group .btn-group > button {
+    background-color: #fff;
+  }
+  #action-btn-group > .btn-group > button:hover,
+#action-btn-group > .btn-group .btn-group > button:hover {
+    background-color: #F5F5F5;
+  }
+}
+
+#block-area table td {
+  border-color: #B9B98C;
+}
+#block-area button {
+  background-color: #AFEEEE;
+}
+#block-area button.open {
+  background-color: #F0F0F0;
+}
+#block-area button.mine {
+  background-color: #FFB6C1;
+}
+#block-area button:hover {
+  -webkit-box-shadow: 0 0 2px 0 #004242;
+          box-shadow: 0 0 2px 0 #004242;
+}
+#block-area button:active {
+  background-color: #B8CFE5;
+}/*# sourceMappingURL=light-theme.css.map */

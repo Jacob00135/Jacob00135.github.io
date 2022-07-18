@@ -1,0 +1,61 @@
+// 页面宏观布局
+body {
+    background-color: #eee;
+
+    #main {
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    }
+
+    #theme-switch {
+        background-color: #D0D0D7;
+    }
+}
+
+// 按钮组
+#action-btn-group {
+    & > .btn-group .level button:hover {
+        background-color: #F5F5F5;
+    }
+
+    @media screen and (max-width: 454px) {
+        & > .btn-group {
+            background-color: #fff;
+
+            & > button,
+            .btn-group > button {
+                background-color: #fff;
+
+                &:hover {
+                    background-color: #F5F5F5;
+                }
+            }
+        }
+    }
+}
+
+// 方块区域
+#block-area {
+    table td {
+        border-color: #B9B98C;
+    }
+
+    button {
+        background-color: #AFEEEE;
+
+        &.open {
+            background-color: #F0F0F0;
+        }
+
+        &.mine {
+            background-color: #FFB6C1;
+        }
+
+        &:hover {
+            box-shadow: 0 0 2px 0 #004242;
+        }
+
+        &:active {
+            background-color: #B8CFE5;
+        }
+    }
+}

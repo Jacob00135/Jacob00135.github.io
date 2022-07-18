@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>扫雷</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- page CSS -->
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/dark-theme.css" />
+</head>
+<body>
+
+    <!-- 游戏结束模态框 [start] -->
+    <div class="modal fade" id="game-over" tabindex="-1" role="dialog" aria-labelledby="game-over">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="game-over">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 游戏结束模态框 [end] -->
+
+    <div id="main">
+
+        <!-- 换主题色 [start] -->
+        <button id="theme-switch" class="glyphicon glyphicon-adjust" data-theme="dark"></button>
+        <!-- 换主题色 [end] -->
+
+        <!-- 操作按钮组 [start] -->
+        <div id="action-btn-group">
+            <div id="game-time">00:00:00</div>
+            <button type="button" class="btn btn-default glyphicon glyphicon-menu-hamburger menu"></button>
+            <div class="btn-group" role="group" aria-label="action">
+                <button id="restart" type="button" class="btn btn-default">重新开始本局</button>
+                <button id="start-new-game" type="button" class="btn btn-default">开始新游戏</button>
+            
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        难度
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu level">
+                        <li><button type="button" data-level="0">初级</button></li>
+                        <li><button type="button" data-level="1">中级</button></li>
+                        <li><button type="button" data-level="2">高级</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="left-mine-count">
+                <span class="glyphicon glyphicon-asterisk"></span>
+                <span class="number">10</span>
+            </div>
+        </div>
+        <!-- 操作按钮组 [end] -->
+
+        <!-- 游戏区域 [start] -->
+        <div id="block-area">
+        </div>
+        <!-- 游戏区域 [end] -->
+
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- page JavaScript -->
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
