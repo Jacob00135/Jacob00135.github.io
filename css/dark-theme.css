@@ -90,6 +90,7 @@ body #theme-switch {
 }
 #block-area button.open {
   background-color: #8A8A8A;
+  color: #eee;
 }
 #block-area button.mine {
   background-color: #FFB6C1;
