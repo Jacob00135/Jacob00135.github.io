@@ -37,9 +37,12 @@
 
     <div id="main">
 
-        <!-- 换主题色 [start] -->
-        <button id="theme-switch" class="glyphicon glyphicon-adjust" data-theme="dark"></button>
-        <!-- 换主题色 [end] -->
+        <!-- 换主题色、动画效果开关 [start] -->
+        <div class="switch-group">
+            <button id="theme-switch" class="glyphicon glyphicon-adjust" data-theme="dark"></button>
+            <button id="animation-switch" class="glyphicon glyphicon-flash" data-open="1"></button>
+        </div>
+        <!-- 换主题色、动画效果开关 [end] -->
 
         <!-- 操作按钮组 [start] -->
         <div id="action-btn-group">
@@ -70,7 +73,7 @@
         <!-- 操作按钮组 [end] -->
 
         <!-- 游戏区域 [start] -->
-        <div id="block-area">
+        <div id="block-area" data-animation="1">
         </div>
         <!-- 游戏区域 [end] -->
 

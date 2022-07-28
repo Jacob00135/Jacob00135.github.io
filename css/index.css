@@ -12,17 +12,35 @@ body #main {
   margin: 0 auto;
   padding: 25px 15px;
 }
-body #theme-switch {
-  display: block;
+body .switch-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 10px;
+}
+body .switch-group > button:nth-child(n+2) {
+  margin-left: 8px;
+}
+body #theme-switch,
+body #animation-switch {
   width: 26px;
   height: 26px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
+  padding: 0;
   border-width: 0;
   border-radius: 13px;
   font-size: 18px;
   outline: none;
+}
+body #animation-switch[data-open="1"] {
+  background-color: #3aa3ff;
+  color: #fff;
+}
+body #animation-switch[data-open="0"] {
+  background-color: #D0D0D7;
+  color: #333;
 }
 
 #action-btn-group {
@@ -137,10 +155,15 @@ body #theme-switch {
   text-align: center;
   line-height: 1rem;
   cursor: default;
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
 }
 #block-area button::before {
   font-family: "Glyphicons Halflings";
   font-size: 0.5652rem;
+}
+#block-area button:active {
+  -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+#block-area button:focus {
+  outline: none;
 }/*# sourceMappingURL=index.css.map */

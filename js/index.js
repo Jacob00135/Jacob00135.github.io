@@ -5,6 +5,7 @@
         static maxButtonSize = 46;
         static gameArea; // 每次游戏的游戏区域
         static render; // Render实例
+        static numberClass = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'];
 
         row; // 所在行
         col; // 所在列
@@ -124,6 +125,7 @@
                 this.button.classList.add('open');
                 if (0 < this.num && this.num <= 8) {
                     this.button.innerHTML = this.num;
+                    this.button.classList.add(Block.numberClass[this.num - 1]);
                 } else if (this.num === -1) {
                     // 判断是否踩雷
                     this.button.classList.add('glyphicon');
@@ -567,7 +569,7 @@
         // 窗口宽度改变时，按钮大小也会发生改变，mainBox宽度也会发生改变
         window.addEventListener('resize', Render.setmainBoxSize);
 
-        // 调整样式、交互部分
+        // 小屏幕尺寸下的下来菜单点击事件
         document.querySelector('#action-btn-group .menu').addEventListener('click', function (e) {
             if (this.unfold) {
                 document.querySelector('#action-btn-group > .btn-group').classList.remove('show');
@@ -576,12 +578,16 @@
             }
             this.unfold = !this.unfold;
         });
+
+        // 按钮组点击事件
         document.querySelector('#action-btn-group > .btn-group').addEventListener('click', function (e) {
             if (window.innerWidth > 454) return;
             if (e.target.getAttribute('data-toggle') === 'dropdown') return;
             this.classList.remove('show');
             document.querySelector('#action-btn-group .menu').unfold = false;
         });
+
+        // 切换浅深色主题按钮
         document.getElementById('theme-switch').addEventListener('click', function (e) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
@@ -595,6 +601,17 @@
                 document.querySelector('link[href$="dark-theme.css"]').remove();
             }
             document.head.appendChild(link);
+        });
+
+        // 动画效果开关按钮
+        document.getElementById('animation-switch').addEventListener('click', function (e) {
+            if (this.getAttribute('data-open') === '1') {
+                this.setAttribute('data-open', '0');
+                document.getElementById('block-area').setAttribute('data-animation', '0');
+            } else {
+                this.setAttribute('data-open', '1');
+                document.getElementById('block-area').setAttribute('data-animation', '1');
+            }
         });
     }
 
