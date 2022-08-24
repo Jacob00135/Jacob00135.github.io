@@ -26,16 +26,56 @@ body {
         box-shadow: 0 0 20px 1px #746bb980;
     }
 
-    #theme-switch {
+    #theme-switch,
+    #show-rank-list {
         background-color: #868686;
-        color: #eee;
+        color: #fff;
     }
 }
 
 // 游戏结束模态框
 #game-over .modal-content {
     background-color: #7b87b9;
-    color: #fff;
+    color: #eee;
+}
+
+// 排行榜模态框
+#rank-list .modal-content {
+    background-color: #7b87b9;
+    color: #eee;
+
+    .rank-table-nav {
+        a {
+            background-color: transparent;
+            color: #c9ffd0;
+
+            &:hover {
+                border-color: #5d6fc1 #5d6fc1 #ddd;
+                background-color: #5d6fc1;
+            }
+        }
+
+        li.active > a {
+            background-color: #7B87B9;
+            color: #eee;
+
+            &:hover {
+                border-color: #ddd #ddd transparent;
+            }
+        }
+    }
+
+    table {
+        > tbody > tr:nth-of-type(odd) {
+            background-color: #6b79b3;
+        }
+
+        th,
+        td {
+            border-top-color: #b9b9b9;
+            border-bottom-color: #b9b9b9;
+        }
+    }
 }
 
 // 按钮组
@@ -80,7 +120,6 @@ body {
 
         &.open {
             background-color: #b5b5b5;
-            color: #eee;
         }
 
         &.mine {

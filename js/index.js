@@ -1,4 +1,77 @@
 (function (window, document) {
+    let db = null;
+    const maxRecord = 10;  // 每个级别最多显示多少条记录
+    connectDatabase();
+
+    // 连接数据库，并创建一个排行榜表
+    function connectDatabase (callback) {
+        if (db === null) {
+            const request = indexedDB.open('Minesweeper', 1);
+            request.addEventListener('upgradeneeded', function (e) {
+                db = request.result;
+                if (!db.objectStoreNames.contains('rankList')) {
+                    const objectStore = db.createObjectStore('rankList', {autoIncrement: true, keyPath: 'id'});
+                    objectStore.createIndex('level', 'level');
+                }
+            });
+            request.addEventListener('success', function (e) {
+                db = request.result;
+                callback && callback();
+            });
+        } else {
+            callback && callback();
+        }
+    }
+
+    // 向排行榜表中添加一条数据
+    function insertRecord (level, insertTime, gameTime) {
+        connectDatabase(function () {
+            // 获取表对象
+            const rankList = db.transaction(['rankList'], 'readwrite').objectStore('rankList');
+
+            // 读取指定等级的数据
+            const readRequest = rankList.index('level').getAll(level);
+            readRequest.addEventListener('success', function (e) {
+                const result = readRequest.result;
+
+                // 检查是否这个级别的记录是否已满，若已满，则检查是否插入新记录
+                let insert = true;
+                if (result.length >= maxRecord) {
+                    let maxGameTime = gameTime;
+                    let maxRecordId = -1;
+                    result.forEach((record, i) => {
+                        if (maxGameTime < record['gameTime']) {
+                            maxGameTime = record['gameTime'];
+                            maxRecordId = record['id'];
+                        }
+                    });
+
+                    // 是不插入新纪录，还是插入新纪录并删除游戏时间最长的记录
+                    if (maxRecordId === -1) {
+                        insert = false;
+                    } else {
+                        rankList.delete(maxRecordId);
+                    }
+                }
+
+                // 插入记录
+                if (insert) {
+                    rankList.add({level: level, insertTime: insertTime, gameTime: gameTime});
+                }
+            });
+        });
+    }
+
+    // 读取排行榜数据
+    function readRecord (callback) {
+        connectDatabase(function () {
+            const request = db.transaction(['rankList']).objectStore('rankList').getAll();
+            request.addEventListener('success', function () {
+                callback && callback(request.result);
+            });
+        });
+    }
+
     // 方块类
     class Block {
         static minButtonSize = 25;
@@ -39,7 +112,7 @@
             for (let i = 0; i < this.round.length; i++) {
                 if (this.round[i].num === -1) {
                     this.num = this.num + 1
-                };
+                }
             }
         }
 
@@ -75,7 +148,6 @@
             // 判断是否赢了
             if (Block.gameArea.isWin()) {
                 Block.render.showGameOverModal(true);
-                return;
             }
         }
 
@@ -179,6 +251,7 @@
         blockArray; // 保存了每个方块的数组，形状是二维[rows, cols]
         buttonElementArray; // 保存了每一个button元素的数组，形状是二维[rows - 2, cols - 2]
         firstOpen = true; // 是否是第一次翻开方块，用于让第一次翻开的方块永远是0方块
+        restartGame = false; // 标记当前的游戏是否为重开的与上一局相同布局的游戏，若是，则不计入排行榜
 
         constructor (rows, cols, mineCount) {
             if ((rows - 2) * (cols - 2) < mineCount) throw '雷数不能大于方块数！';
@@ -275,6 +348,8 @@
         static blockArea = document.getElementById('block-area');
         static gameOverModal = document.getElementById('game-over');
         static leftMineCount = document.querySelector('#action-btn-group .left-mine-count .number');
+        static rankListModal = document.getElementById('rank-list');
+        static rankTbodyArray = document.querySelectorAll('#rank-list table > tbody');
 
         gameArea;
 
@@ -288,7 +363,7 @@
             Render.stopTimer();
             Render.leftMineCount.innerHTML = this.gameArea.mineCount;
             this.generateBlockArea();
-            Render.setmainBoxSize();
+            Render.setMainBoxSize();
         }
 
         generateBlockArea () {
@@ -306,7 +381,7 @@
             Render.blockArea.appendChild(table);
         }
 
-        static setmainBoxSize () {
+        static setMainBoxSize () {
             // 计算需要适应宽度的按钮的大小，并通过改变html的字体大小，再间接通过rem单位改变按钮的大小
             const totalWidth = window.innerWidth - 40;
             const borderWidthSum = Block.gameArea.cols - 1;
@@ -343,8 +418,8 @@
         }
 
         showGameOverModal (win) {
-            // 停止计时器
-            Render.stopTimer();
+            // 停止计时器，并且获取游戏用时
+            const gameTime = Render.stopTimer();
 
             // 游戏结束，所有按钮移除点击事件
             for (let r = 1; r <= this.gameArea.rows - 2; r++) {
@@ -354,6 +429,11 @@
                     block.button.removeEventListener('mousedown', block.rightClickEventListener);
                     block.button.removeEventListener('mouseup', block.leftRightClickEventListener);
                 }
+            }
+
+            // 若赢了游戏，并且本局不是点击了“重新开始本局”所开始的一局，则记录游戏时长、游戏结束时间
+            if (win && !this.gameArea.restartGame) {
+                insertRecord(GameArea.level, +new Date(), gameTime / 1000);
             }
 
             // 显示模态框
@@ -391,6 +471,7 @@
             // 生成新游戏区域和新的渲染实例
             const newGameArea = new GameArea(Block.gameArea.rows, Block.gameArea.cols, Block.gameArea.mineCount);
             const newRender = new Render(newGameArea);
+            newGameArea.restartGame = true;
 
             // 手动初始化雷和数字的分布
             newGameArea.firstOpen = false;
@@ -413,7 +494,48 @@
             render.initGame();
         }
 
+        static showRankList () {
+            // 从indexDB中获取排行榜数据
+            readRecord(function (result) {
+                // 清除原排名内容
+                Render.rankTbodyArray.forEach((tbody) => {
+                    tbody.innerHTML = '';
+                });
+
+                // 将数据按级别进行分组
+                const rankData = [[], [], []];
+                result.forEach((record) => {
+                    const level = record['level'];
+                    rankData[level].push(record);
+                });
+
+                // 对数据按游戏用时进行排序，并渲染到模态框的表格中
+                rankData.forEach((levelRankArray, level) => {
+                    levelRankArray.sort(function (v1, v2) {
+                        return v1['gameTime'] - v2['gameTime'];
+                    });
+
+                    const tbodyHTML = [];
+                    levelRankArray.forEach((record, i) => {
+                        const date = (new Date(record['insertTime'])).toLocaleString().replace(/\//g, '-');
+                        tbodyHTML.push(
+                            '<tr><td>{{ i }}</td><td>{{ gameTime }}</td><td>{{ insertTime }}</td></tr>'
+                                .replace('{{ i }}', String(i + 1))
+                                .replace('{{ gameTime }}', record['gameTime'])
+                                .replace('{{ insertTime }}', date)
+                        );
+                    });
+
+                    document.querySelector('#rank-list table[data-level="' + level + '"] > tbody').innerHTML = tbodyHTML.join('');
+                });
+
+                // 显示模态框
+                $(Render.rankListModal).modal('show');
+            });
+        }
+
         static startTimer () {
+            Render.gameTime.gameStartTime = +new Date();
             Render.gameTime.timer = setInterval(function () {
                 Render.gameTime.gameTime = Render.gameTime.gameTime + 1;
                 const t = Render.gameTime.gameTime;
@@ -434,8 +556,10 @@
         }
 
         static stopTimer () {
+            Render.gameTime.gameEndTime = +new Date();
             clearInterval(Render.gameTime.timer);
             Render.gameTime.gameTime = 0;
+            return Render.gameTime.gameEndTime - Render.gameTime.gameStartTime;
         }
     }
 
@@ -567,9 +691,9 @@
         Render.startNewGameButton.click();
 
         // 窗口宽度改变时，按钮大小也会发生改变，mainBox宽度也会发生改变
-        window.addEventListener('resize', Render.setmainBoxSize);
+        window.addEventListener('resize', Render.setMainBoxSize);
 
-        // 小屏幕尺寸下的下来菜单点击事件
+        // 小屏幕尺寸下的下拉菜单点击事件
         document.querySelector('#action-btn-group .menu').addEventListener('click', function (e) {
             if (this.unfold) {
                 document.querySelector('#action-btn-group > .btn-group').classList.remove('show');
@@ -613,6 +737,9 @@
                 document.getElementById('block-area').setAttribute('data-animation', '1');
             }
         });
+
+        // 显示排行榜的按钮
+        document.getElementById('show-rank-list').addEventListener('click', Render.showRankList);
     }
 
     main();

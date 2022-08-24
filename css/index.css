@@ -2,9 +2,12 @@ html {
   font-size: 46px;
 }
 
+button {
+  outline: none !important;
+}
+
 body {
   padding: 30px 0;
-  -webkit-transition: all 1s;
   transition: all 1s;
 }
 body #main {
@@ -13,26 +16,25 @@ body #main {
   padding: 25px 15px;
 }
 body .switch-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   margin-bottom: 10px;
 }
 body .switch-group > button:nth-child(n+2) {
   margin-left: 8px;
 }
 body #theme-switch,
-body #animation-switch {
+body #animation-switch,
+body #show-rank-list {
   width: 26px;
   height: 26px;
   padding: 0;
   border-width: 0;
   border-radius: 13px;
   font-size: 18px;
-  outline: none;
+}
+body #show-rank-list {
+  border-radius: 0;
 }
 body #animation-switch[data-open="1"] {
   background-color: #3aa3ff;
@@ -43,14 +45,27 @@ body #animation-switch[data-open="0"] {
   color: #333;
 }
 
+#rank-list .rank-table-nav {
+  display: flex;
+  justify-content: center;
+}
+#rank-list table {
+  margin-bottom: 0;
+  font-size: 18px;
+}
+#rank-list table th,
+#rank-list table tr {
+  text-align: center;
+}
+#rank-list table > tbody > tr:last-child > td {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
 #action-btn-group {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   height: 34px;
   text-align: center;
 }
@@ -62,7 +77,6 @@ body #animation-switch[data-open="0"] {
   display: none;
 }
 #action-btn-group > .btn-group button {
-  -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
 #action-btn-group > .btn-group .level button {
@@ -71,7 +85,6 @@ body #animation-switch[data-open="0"] {
   padding: 3px 20px;
   border-width: 0;
   background-color: transparent;
-  outline: none;
   text-align: left;
 }
 @media screen and (max-width: 454px) {
@@ -89,7 +102,6 @@ body #animation-switch[data-open="0"] {
     margin-left: -75px;
     padding: 5px 0;
     border-radius: 4px;
-    -webkit-transition: all 1s;
     transition: all 1s;
   }
   #action-btn-group > .btn-group > button,
@@ -100,7 +112,6 @@ body #animation-switch[data-open="0"] {
     padding: 3px 20px;
     border-width: 0;
     border-radius: 0;
-    outline: none;
     text-align: left;
   }
   #action-btn-group > .btn-group > button:active,
@@ -120,8 +131,6 @@ body #animation-switch[data-open="0"] {
   }
 }
 #action-btn-group .left-mine-count {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: 34px;
   padding-right: 10px;
@@ -150,7 +159,7 @@ body #animation-switch[data-open="0"] {
   padding: 0;
   border-width: 0;
   border-radius: 0;
-  font-family: Consolas, "Microsoft YaHei";
+  font-family: Consolas, "Microsoft YaHei", serif;
   font-size: 0.6522rem;
   text-align: center;
   line-height: 1rem;
@@ -164,6 +173,5 @@ body #animation-switch[data-open="0"] {
   -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
-#block-area button:focus {
-  outline: none;
-}/*# sourceMappingURL=index.css.map */
+
+/*# sourceMappingURL=index.css.map */

@@ -4,34 +4,59 @@ body {
 }
 body #main {
   background-color: #3F445B;
-  -webkit-box-shadow: 0 0 20px 1px rgba(116, 107, 185, 0.5019607843);
-          box-shadow: 0 0 20px 1px rgba(116, 107, 185, 0.5019607843);
+  box-shadow: 0 0 20px 1px #746bb980;
 }
-body #theme-switch {
+body #theme-switch,
+body #show-rank-list {
   background-color: #868686;
-  color: #eee;
+  color: #fff;
 }
 
 #game-over .modal-content {
   background-color: #7b87b9;
-  color: #fff;
+  color: #eee;
+}
+
+#rank-list .modal-content {
+  background-color: #7b87b9;
+  color: #eee;
+}
+#rank-list .modal-content .rank-table-nav a {
+  background-color: transparent;
+  color: #c9ffd0;
+}
+#rank-list .modal-content .rank-table-nav a:hover {
+  border-color: #5d6fc1 #5d6fc1 #ddd;
+  background-color: #5d6fc1;
+}
+#rank-list .modal-content .rank-table-nav li.active > a {
+  background-color: #7B87B9;
+  color: #eee;
+}
+#rank-list .modal-content .rank-table-nav li.active > a:hover {
+  border-color: #ddd #ddd transparent;
+}
+#rank-list .modal-content table > tbody > tr:nth-of-type(odd) {
+  background-color: #6b79b3;
+}
+#rank-list .modal-content table th,
+#rank-list .modal-content table td {
+  border-top-color: #b9b9b9;
+  border-bottom-color: #b9b9b9;
 }
 
 #action-btn-group > .btn-group button {
   background-color: #818CBB;
   color: #eee;
-  -webkit-transition: all 0.1s;
   transition: all 0.1s;
 }
 #action-btn-group > .btn-group button:hover {
-  -webkit-box-shadow: 0 0 5px 2px #5a70ff;
-          box-shadow: 0 0 5px 2px #5a70ff;
+  box-shadow: 0 0 5px 2px #5a70ff;
   background-color: #aeb9e7;
   color: #fff;
 }
 #action-btn-group > .btn-group button:active {
-  -webkit-box-shadow: 0 0 5px 1px #7d3a85;
-          box-shadow: 0 0 5px 1px #7d3a85;
+  box-shadow: 0 0 5px 1px #7d3a85;
   background-color: #7d3a85;
   color: #fff;
 }
@@ -43,45 +68,38 @@ body #theme-switch {
   #action-btn-group .menu {
     background-color: #818CBB;
     color: #eee;
-    -webkit-transition: all 0.1s;
     transition: all 0.1s;
   }
   #action-btn-group .menu:hover {
-    -webkit-box-shadow: 0 0 5px 2px #5a70ff;
-            box-shadow: 0 0 5px 2px #5a70ff;
+    box-shadow: 0 0 5px 2px #5a70ff;
     background-color: #aeb9e7;
     color: #fff;
   }
   #action-btn-group .menu:active {
-    -webkit-box-shadow: 0 0 5px 1px #7d3a85;
-            box-shadow: 0 0 5px 1px #7d3a85;
+    box-shadow: 0 0 5px 1px #7d3a85;
     background-color: #7d3a85;
     color: #fff;
   }
   #action-btn-group > .btn-group {
     background-color: #818CBB;
     color: #eee;
-    -webkit-transition: all 0.1s;
     transition: all 0.1s;
   }
   #action-btn-group > .btn-group > button,
 #action-btn-group > .btn-group .btn-group > button {
     background-color: #818CBB;
     color: #eee;
-    -webkit-transition: all 0.1s;
     transition: all 0.1s;
   }
   #action-btn-group > .btn-group > button:hover,
 #action-btn-group > .btn-group .btn-group > button:hover {
-    -webkit-box-shadow: 0 0 5px 2px #5a70ff;
-            box-shadow: 0 0 5px 2px #5a70ff;
+    box-shadow: 0 0 5px 2px #5a70ff;
     background-color: #aeb9e7;
     color: #fff;
   }
   #action-btn-group > .btn-group > button:active,
 #action-btn-group > .btn-group .btn-group > button:active {
-    -webkit-box-shadow: 0 0 5px 1px #7d3a85;
-            box-shadow: 0 0 5px 1px #7d3a85;
+    box-shadow: 0 0 5px 1px #7d3a85;
     background-color: #7d3a85;
     color: #fff;
   }
@@ -95,19 +113,16 @@ body #theme-switch {
 }
 #block-area button.open {
   background-color: #b5b5b5;
-  color: #eee;
 }
 #block-area button.mine {
   background-color: #FFB6C1;
 }
 
 #block-area[data-animation="1"] button {
-  -webkit-transition: all 0.1s;
   transition: all 0.1s;
 }
 #block-area[data-animation="1"] button:hover {
-  -webkit-box-shadow: 0 0 3px 1px #3421b1;
-          box-shadow: 0 0 3px 1px #3421b1;
+  box-shadow: 0 0 3px 1px #3421b1;
 }
 #block-area[data-animation="1"] button:active {
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.13);
@@ -138,4 +153,6 @@ body #theme-switch {
 }
 #block-area button.open.eight {
   color: #808080;
-}/*# sourceMappingURL=dark-theme.css.map */
+}
+
+/*# sourceMappingURL=dark-theme.css.map */

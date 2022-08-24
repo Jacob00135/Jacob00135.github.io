@@ -22,7 +22,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="game-over">提示</h4>
+                    <h4 class="modal-title" id="game-over-title">提示</h4>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger" role="alert"></div>
@@ -35,14 +35,86 @@
     </div>
     <!-- 游戏结束模态框 [end] -->
 
+    <!-- 排行榜模态框 [start] -->
+    <div class="modal fade" id="rank-list" tabindex="-1" role="dialog" aria-labelledby="rank-list">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="rank-list-title">排行榜</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs rank-table-nav">
+                        <li role="presentation" class="active" data-level="0">
+                            <a href="#rank-table-level-0" role="tab" data-toggle="tab"
+                               aria-controls="rank-table-level-0" aria-expanded="true">初级</a>
+                        </li>
+                        <li role="presentation" data-level="1">
+                            <a href="#rank-table-level-1" role="tab" data-toggle="tab"
+                               aria-controls="rank-table-level-1" aria-expanded="false">中级</a>
+                        </li>
+                        <li role="presentation" data-level="2">
+                            <a href="#rank-table-level-2" role="tab" data-toggle="tab"
+                               aria-controls="rank-table-level-2" aria-expanded="false">高级</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="rank-table-level-0">
+                            <table class="table table-striped" data-level="0">
+                                <thead>
+                                    <tr>
+                                        <th>排名</th>
+                                        <th>用时(s)</th>
+                                        <th>日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="rank-table-level-1">
+                            <table class="table table-striped" data-level="1">
+                                <thead>
+                                    <tr>
+                                        <th>排名</th>
+                                        <th>用时(s)</th>
+                                        <th>日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="rank-table-level-2">
+                            <table class="table table-striped" data-level="2">
+                                <thead>
+                                    <tr>
+                                        <th>排名</th>
+                                        <th>用时(s)</th>
+                                        <th>日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 排行榜模态框 [end] -->
+
     <div id="main">
 
-        <!-- 换主题色、动画效果开关 [start] -->
+        <!-- 换主题色、动画效果开关、排行榜 [start] -->
         <div class="switch-group">
-            <button id="theme-switch" class="glyphicon glyphicon-adjust" data-theme="dark"></button>
-            <button id="animation-switch" class="glyphicon glyphicon-flash" data-open="1"></button>
+            <button id="theme-switch" class="glyphicon glyphicon-adjust" data-theme="dark" type="button"></button>
+            <button id="animation-switch" class="glyphicon glyphicon-flash" data-open="1" type="button"></button>
+            <button id="show-rank-list" class="glyphicon glyphicon-list-alt" type="button"></button>
         </div>
-        <!-- 换主题色、动画效果开关 [end] -->
+        <!-- 换主题色、动画效果开关、排行榜 [end] -->
 
         <!-- 操作按钮组 [start] -->
         <div id="action-btn-group">
